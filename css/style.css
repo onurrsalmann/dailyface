@@ -1,0 +1,334 @@
+html{height: 100%;}
+body{
+  text-align: center;
+  background:linear-gradient(135deg,
+    rgba(215,230,255,1) 0%,
+    rgba(243,219,246,1) 50%,
+    rgba(240,220,247,1) 55%,
+    rgba(217,227,255,1) 100%);
+  height: 100%;
+}
+.logo-blok{
+  width: 100%;
+  height: 25%;
+}
+.logo-bolum{
+  width: 100%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+}
+.logo{
+  width:70%;
+  height: 70%;
+}
+.logo-yazi{
+  color:black;
+  font-family: Arial;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+}
+.sayfalar-blok{
+  width: 100%;
+  height: 60%;
+}
+.logout-blok{
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+}
+.menu-bolum{
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+
+}
+.menu-icon{
+  width: 45%;
+  height: 45%;
+  float: right;
+}
+
+/*Search Kısmı*/
+.search{
+  width: 100%;
+  height: 15%;
+  transform-style: preserve-3d;
+}
+.search-form{
+  position: relative;  top: 50%;   transform: perspective(1px) translateY(-50%);
+  float: left;
+}
+button{
+  width: 10%;
+  height: 12%;
+  background: none;
+  border:none;
+}
+.search-icon{
+  width: 100%;
+  height: 100%;
+}
+input[placeholder], [placeholder], *[placeholder] {
+  color: black;
+}
+
+
+.foto-ekleme-kismi{
+  width: 100%;
+  height: 85%;
+}
+.posts{
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.post-comment{
+  width: 96%;
+  height: 100%;
+  margin:auto;
+  margin-top: 3%;
+}
+.post-ust{
+  width: 100%;
+  height: 8%;
+  background-color: #fff;
+}
+.pp{
+  margin-left: 2%;
+  margin-right: 1%;
+  margin-top:1%;
+  float: left;
+  width: 5%;
+  height: 75%;
+
+}
+.post-sahip{
+  padding-top: 1.5%;
+  float: left;
+  text-decoration: none;
+  color:black;
+  font-size: 140%;
+}
+.postsil-button{
+  width: 5%;
+  float:right;
+  margin-right: 2%;
+  border:none;
+  margin-top: 1.5%;
+  border-radius: 5px;
+  background: #b40ef0;
+  color:white;
+}
+.post-aciklama{
+  float: right;
+  margin-right: 2%;
+  padding-top: 1.5%;
+  font-style: italic;
+}
+.post-orta{
+  height: 79%;
+  width: 100%;
+  background-color: #ffffff;
+}
+.post-image{
+  max-width: 100%;
+  max-height: 100%;
+}
+.post-son{
+  width: 100%;
+  height: 13%;
+  background-color: #fff;
+}
+.yorum-ekle{
+  width: 100%;
+  height: 50%;
+}
+.yorum-input{
+  width: 80%;
+  border-radius: 5px;
+  float: left;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+.yorum-button{
+  width: 15%;
+  float:right;
+  margin-right: 2%;
+  border:none;
+  margin-top: 1%;
+  border-radius: 5px;
+  background: #b40ef0;
+  color:white;
+}
+.yorumlar{
+  width: 100%;
+  height: 50%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.yorum{
+  height: 100%;
+  width: 100%;
+  margin:auto;
+  padding-top:1.5%;
+}
+.yorum_pp{
+  margin-left: 2%;
+  margin-right: 1%;
+  float: left;
+  width: 3%;
+  height: 75%;
+}
+.yorum-sahip{
+  float: left;
+  text-decoration: none;
+  color:black;
+  font-size: 100%;
+}
+.yorum-aciklama{
+  float: left;
+  margin-left: 2%;
+  font-style: italic;
+}
+/* Profil Kısmı */
+.profil{
+  width:100%;
+  height: 85%;
+}
+.profil-bilgi{
+  width:100%;
+  height: 18%;
+  border-bottom: 2px solid #000;
+}
+.profil-bilgi-baslik{
+  font-weight: bold;
+  float: left;
+}
+.profil-bilgi-icerik{
+  float: left;
+}
+.profil-pp{
+  margin-left: 2%;
+  margin-right: 3%;
+  float: left;
+  width: 20%;
+  height: 55%;
+}
+.profil-post{
+  width:100%;
+  height: 61%;
+}
+.profil-post-kalip{
+  margin-right: 0.6%;
+  margin-top: 1%;
+  margin-left: 0.6%;
+  height: 29%;
+  width: 32%;
+  background-color: #ffffff;
+  float: left;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.profil-post-image{
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+.profil-ayarlar{
+  width:100%;
+  height: 12%;
+}
+.profil-ayarlar a {
+  text-decoration: none;
+  color:black;
+  font-size: 1.5vw;
+}
+
+/** Login Sayfası**/
+.log-logo{
+  width: 75%;
+  height: 20%;
+  margin: auto;
+}
+.logomm{
+  width: 40%;
+  height: 80%;
+  float: left;
+
+}
+.logom{
+  width: 60%;
+  height: 30%;
+  margin-top: 20%;
+  float: left;
+}
+.log{
+  width: 75%;
+  height: 60%;
+  margin: auto;
+}
+.log-in{
+  width: 100%;
+  height: 70%;
+}
+.log-in-baslik-div{
+  width: 100%;
+  height: 20%;
+  padding-top:8%;
+}
+.log-in-baslik{
+  font-size: 150%;
+  float: left;
+}
+.log-in-form{
+  width: 100%;
+  height: 80%;
+  padding-top:10%;
+}
+.form-input{
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  margin-top:5%;
+}
+.form-button{
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  margin-top:3%;
+  background: #b40ef0;
+  color:white;
+}
+.sing-in{
+  width: 100%;
+  height: 30%;
+  margin: auto;
+  border-top: 2px solid #b40ef0;
+}
+.sing-in-yazi{
+  position: relative;  top: 30%;   transform: perspective(1px) translateY(-0%);
+  color:red;
+  font-size:120%;
+}
+.sing-link{
+  position: relative;  top: 30%;   transform: perspective(1px) translateY(-0%);
+  color: #b40ef0;
+  font-size: 120%;
+}
+.log-footer{
+  width: 75%;
+  height: 20%;
+  margin: auto;
+}
+.log-footer-yazi{
+  position: relative;  top: 25%;   transform: perspective(1px) translateY(-0%);
+  font-size:80%;
+}
