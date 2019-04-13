@@ -31,7 +31,7 @@ class Users{
         }
     }
 
-    public function Signin($kadi, $sifre, $eposta, $k_token){
+    public function Signin($kadi, $sifre, $eposta,$adi, $k_token){
         $ko = $this->db->prepare("SELECT (kadi) FROM users WHERE kadi = :kadi");
             $ko->execute(array("kadi" => $kadi));
             if($ko->rowCount() > 0)
@@ -39,14 +39,14 @@ class Users{
             else{
                 if (preg_match('/[^A-Za-z0-9-_]/i', $kadi)) { echo "Kullanıcı adınız izin verilmeyen karakterler içeriyor.";}
                 else{
-                    $ekle = $this->db->prepare("INSERT INTO users(eposta, kadi, sifre, token)
-                    VALUES( ?, ?, ?, ?)");
-                    $ekle->bindParam(1, $eposta, PDO::PARAM_STR);
-                    $ekle->bindParam(2, $kadi, PDO::PARAM_STR);
-                    $ekle->bindParam(3, $sifre, PDO::PARAM_STR);
-                    $ekle->bindParam(4, $k_token, PDO::PARAM_STR);
-                    $ekle->execute();
-                    if ($ekle) {  $login = new Users();
+                    $a = $this->db->prepare("INSERT INTO users(eposta, kadi, sifre, adi, token) VALUES ( ?, ?, ?, ?, ?)");
+                    $a->bindParam(1, $eposta, PDO::PARAM_STR);
+                    $a->bindParam(2, $kadi, PDO::PARAM_STR);
+                    $a->bindParam(3, $sifre, PDO::PARAM_STR);
+                    $a->bindParam(4, $adi, PDO::PARAM_STR);
+                    $a->bindParam(5, $k_token, PDO::PARAM_STR);
+                    $a->execute();
+                    if ($a) {  $login = new Users();
                         $login->Login($kadi, $sifre);
                     }
                     else { echo "Eklenemedi."; }

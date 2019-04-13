@@ -10,8 +10,9 @@ if(GirisYapti()){
     include 'views/icerik-ekle.php';
   }else if($s == 4){
     include 'views/profilduzenle.php';
+  }else if($s == 5){
+    include 'views/search.php';
   }
-
 }else{
     header('Location: views/log-in.php');
 }

@@ -56,19 +56,19 @@ class Content{
       return $pp_r["$istedigin_veri"];
     }
     public function Goster(){
-      $fotogoster = $this->db->prepare("SELECT * FROM post");
+      $fotogoster = $this->db->prepare("SELECT * FROM post ORDER BY post_id DESC");
       $fotogoster->execute(array());
       $f = $fotogoster->fetchAll(PDO::FETCH_ASSOC);
         foreach ($f as $m) {
           $pp = $this->PostUserVeri($m["post_sahip"],"pp");
-          $yorumlar = $this->db->prepare("SELECT * FROM comment WHERE post_id=?");
+          $yorumlar = $this->db->prepare("SELECT * FROM comment WHERE post_id=? ORDER BY id DESC");
           $yorumlar->execute(array($m["post_id"]));
           $yorum = $yorumlar->fetchAll(PDO::FETCH_OBJ);
           echo '
           <div class="post-comment">
             <div class="post-ust">
               <img class="pp" src="fotograflar/pp/'.$pp.'">
-              <a class="post-sahip" href="os/'.$m["post_sahip"].'">@'.$m["post_sahip"].'</a>';
+              <a class="post-sahip" href="views/profil.php?os='.$m["post_sahip"].'">@'.$m["post_sahip"].'</a>';
 
               if($m["post_sahip"]== $_SESSION["kadi"]){
                 echo '<form action="core/controller/post-sil.php" method="POST">
@@ -95,7 +95,7 @@ class Content{
               foreach ($yorum as $keyYorum) {
                 $yorum_pp = $this->PostUserVeri($keyYorum->yazan,"pp");
                 echo '<div class="yorum"><img class="yorum_pp" src="fotograflar/pp/'.$yorum_pp.'">
-                 <a class="yorum-sahip" href="os/'.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
+                 <a class="yorum-sahip" href="views/profil.php?os='.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
                  <a class="yorum-aciklama">'.$keyYorum->yorum.'</a>';
                  if($m["post_sahip"]== $_SESSION["kadi"]){
                    echo '<form action="core/controller/yorum-sil.php" method="POST">

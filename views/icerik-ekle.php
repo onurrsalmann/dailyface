@@ -42,11 +42,11 @@
       </div>
       <div class="col-3">
         <div class="search">
-          <form class="search-form">
-              <button onclick="JavaScript:alert('You will love this book!')">
+          <form action="views/search.php" method="GET" class="search-form">
+              <button>
                   <img class="search-icon" src="images/icon/search.png" alt="Read book">
                 </button>
-                &nbsp; &nbsp; <input type="search" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
+                &nbsp; &nbsp; <input type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
           </form>
         </div>
         <div class="profil">
@@ -61,7 +61,7 @@
             <a class="profil-bilgi-baslik">E-posta:</a><a class="profil-bilgi-icerik"><?php echo $profil->ProfilVeriCek($kadi,'eposta'); ?></a>
           </div>
           <div class="profil-post">
-            <?php $profil->Postlar($kadi);?>
+            <?php $profil->Postlar($kadi,'views/','');?>
           </div>
           <div class="profil-ayarlar">
             <a href="?s=4">Profili Düzenle</a>

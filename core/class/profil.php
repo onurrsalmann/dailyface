@@ -13,11 +13,74 @@ class Profil{
     $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
     return $pp_r["$istedigin"];
   }
-  public function Postlar($kadi){
-    $query = $this->db->query("SELECT * FROM post WHERE post_sahip='$kadi'", PDO::FETCH_ASSOC);
+  public function Postlar($kadi,$adres1, $adres){
+    $query = $this->db->query("SELECT * FROM post WHERE post_sahip='$kadi' ORDER BY post_id DESC", PDO::FETCH_ASSOC);
+    if($query->rowCount()){
      foreach( $query as $row ){
-        echo '<div class="profil-post-kalip"><img src= "fotograflar/post/'.$row["post_adi"].'" class="profil-post-image" alt="post"></div>';
+        echo '<a href="'.$adres1.'profil.php?os='.$row["post_sahip"].'&p='.$row["post_id"].'">
+        <div class="profil-post-kalip">
+        <img src= "'.$adres.'fotograflar/post/'.$row["post_adi"].'" class="profil-post-image" alt="post">
+        </div>
+        </a>';
+     }}else{
+       echo 'Henüz hiç gönderin yok';
      }
+  }
+  public function PostGoster($p, $po){
+    $pp = $this->db->prepare("SELECT * FROM post WHERE post_id=?");
+    $pp->execute(array($p));
+    $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
+    $yorumlar = $this->db->prepare("SELECT * FROM comment WHERE post_id=? ORDER BY id DESC");
+    $yorumlar->execute(array($pp_r["post_id"]));
+    $yorum = $yorumlar->fetchAll(PDO::FETCH_OBJ);
+    echo '
+    <div id="os-post-comment">
+      <div class="post-ust">
+        <img class="pp" src="../fotograflar/pp/'.$po.'">
+        <a id="os-post-sahip" href="profil?os='.$pp_r["post_sahip"].'">@'.$pp_r["post_sahip"].'</a>';
+        if($pp_r["post_sahip"]== $_SESSION["kadi"]){
+          echo '<form action="../core/controller/post-sil.php" method="POST">
+            <input name="postsil" type="hidden" value="'.$pp_r["post_id"].'" />
+            <input name="postsilsubmit" class="postsil-button"  type="submit" value="Sil">
+          </form>';
+        }
+        echo '
+        <a class="post-aciklama">'.$pp_r["post_aciklama"].'</a>
+      </div>
+      <div id="os-post-orta">
+        <img src= "../fotograflar/post/'.$pp_r["post_adi"].'" class="post-image" alt="post">
+      </div>
+      <div id="os-post-son">
+        <div class="yorum-ekle">
+          <form action="../core/controller/yorum-ekle.php" method="POST">
+            <input name="post_id" type="hidden" value="'.$pp_r["post_id"].'" />
+            <input required  type="text" placeholder="Yorumunuzu yazınız.." class="yorum-input" name="yorum">
+            <input name="yorumsubmit" class="yorum-button"  type="submit" value="Paylaş">
+          </form>
+        </div>
+        <div class="yorumlar">';
+        foreach ($yorum as $keyYorum) {
+          $yorum_pp = $this->ProfilVeriCek($keyYorum->yazan,"pp");
+          echo '<div class="yorum"><img class="yorum_pp" src="../fotograflar/pp/'.$yorum_pp.'">
+           <a class="yorum-sahip" href="profil.php?os='.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
+           <a class="yorum-aciklama">'.$keyYorum->yorum.'</a>';
+           if($pp_r["post_sahip"]== $_SESSION["kadi"]){
+             echo '<form action="../core/controller/yorum-sil.php" method="POST">
+               <input name="yorum_id" type="hidden" value="'.$keyYorum->id.'" />
+               <input name="yorumsubmit" class="yorum-button"  type="submit" value="Sil">
+             </form></div>';
+           }
+           else if($keyYorum->yazan ==$_SESSION["kadi"]){
+             echo '<form action="../core/controller/yorum-sil.php" method="POST">
+               <input name="yorum_id" type="hidden" value="'.$keyYorum->id.'" />
+               <input name="yorumsubmit" class="yorum-button"  type="submit" value="Sil">
+             </form></div>';
+           }else{echo '</div>';}
+        }
+        echo '
+          </div>
+      </div>
+    </div>';
   }
   public function Duzenle($ad,$kad,$sifre,$eposta){
     $fotoAdi = $kad.'.jpg';

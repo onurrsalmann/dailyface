@@ -32,9 +32,9 @@
       <div class="col-8">
         <div class="foto-ekleme-kismi">
           <br/>
-          <h2>Profil Düzenle</h2>
+          <h2>Profil Düzenle</h2></br>
           <form action="core/controller/profil-duzenle.php" method="POST" enctype="multipart/form-data" class="foto-form">
-              <input class="form-input" type="file" name="pp">
+              <a id="file-name">Yeni Profil Resmi(isteğe bağlı): </a><input type="file" name="pp">
               <input class="form-input" type="text" placeholder="Yeni adınız:" name="ad"><br/>
               <input class="form-input" type="text" placeholder="Yeni kullanıcı adınız(isteğe bağlı)" name="kad"><br/>
               <input class="form-input" type="text" placeholder="Yeni şifreniz(isteğe bağlı)" name="sif"><br/>
@@ -45,11 +45,11 @@
       </div>
       <div class="col-3">
         <div class="search">
-          <form class="search-form">
-              <button onclick="JavaScript:alert('You will love this book!')">
+          <form action="views/search.php" method="GET" class="search-form">
+              <button>
                   <img class="search-icon" src="images/icon/search.png" alt="Read book">
                 </button>
-                &nbsp; &nbsp; <input type="search" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
+                &nbsp; &nbsp; <input type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
           </form>
         </div>
         <div class="profil">
@@ -64,7 +64,7 @@
             <a class="profil-bilgi-baslik">E-posta:</a><a class="profil-bilgi-icerik"><?php echo $profil->ProfilVeriCek($kadi,'eposta'); ?></a>
           </div>
           <div class="profil-post">
-            <?php $profil->Postlar($kadi);?>
+            <?php $profil->Postlar($kadi,'views/','');?>
           </div>
           <div class="profil-ayarlar">
             <a href="?s=4">Profili Düzenle</a>
