@@ -423,3 +423,36 @@ input[placeholder], [placeholder], *[placeholder] {
   height: 17%;
   background-color: #fff;
 }
+
+/* Notification*/
+.notf{
+  height: 12%;
+  width: 100%;
+  margin-top: 2%;
+  border: 2px solid #fff;
+}
+.notf a {
+  float: left;
+  margin-top: 3.1%;
+}
+#notf-yazan{
+ font-weight: bold;
+
+}
+#notf-tarih{
+ float: right;
+ font-size: 1vw;
+ padding-right: 1.5%;
+ font-style: italic;
+}
+.notfsil-button{
+  width: 8%;
+  float: right;
+  border: 2px solid #fff;
+  border-radius: 15%;
+  margin-top: 2.9%;
+  margin-right: 2%;
+}
+.notfsil-button:hover {
+  background-color: #fff;
+}

@@ -23,7 +23,7 @@ class Profil{
         </div>
         </a>';
      }}else{
-       echo 'Henüz hiç gönderin yok';
+       echo 'Henüz hiç gönderi yok';
      }
   }
   public function PostGoster($p, $po){
@@ -122,7 +122,15 @@ class Profil{
       $tt->bindParam(1, $kad, PDO::PARAM_STR);
       $tt->bindParam(2, $fotoSahip, PDO::PARAM_STR);
       $tt->execute();
-      if($ekle && $tt && $dd){
+      $ff = $this->db->prepare("UPDATE notification SET yazan= ? WHERE yazan=? ");
+      $ff->bindParam(1, $kad, PDO::PARAM_STR);
+      $ff->bindParam(2, $fotoSahip, PDO::PARAM_STR);
+      $ff->execute();
+      $cc = $this->db->prepare("UPDATE notification SET yazilan= ? WHERE yazilan=? ");
+      $cc->bindParam(1, $kad, PDO::PARAM_STR);
+      $cc->bindParam(2, $fotoSahip, PDO::PARAM_STR);
+      $cc->execute();
+      if($ekle && $tt && $dd && $ff && $cc){
         echo '<h2>Başarılı</h2>';
         $_SESSION['kadi'] = $kad;
         header('Refresh: 1; url=../../index.php');
@@ -182,7 +190,15 @@ class Profil{
             $tt->bindParam(1, $kad, PDO::PARAM_STR);
             $tt->bindParam(2, $fotoSahip, PDO::PARAM_STR);
             $tt->execute();
-            if($tasi && $ekle && $tt && $dd){
+            $ff = $this->db->prepare("UPDATE notification SET yazan= ? WHERE yazan=? ");
+            $ff->bindParam(1, $kad, PDO::PARAM_STR);
+            $ff->bindParam(2, $fotoSahip, PDO::PARAM_STR);
+            $ff->execute();
+            $cc = $this->db->prepare("UPDATE notification SET yazilan= ? WHERE yazilan=? ");
+            $cc->bindParam(1, $kad, PDO::PARAM_STR);
+            $cc->bindParam(2, $fotoSahip, PDO::PARAM_STR);
+            $cc->execute();
+            if($tasi && $ekle && $tt && $dd && $ff && $cc){
               echo '<h2>Başarılı</h2>';
               $_SESSION['kadi'] = $kad;
               header('Refresh: 1; url=../../index.php');

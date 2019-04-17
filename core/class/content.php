@@ -55,10 +55,17 @@ class Content{
       $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
       return $pp_r["$istedigin_veri"];
     }
+    public function IdtoVeri($id,$istedigin_veri){
+      $pp = $this->db->prepare("SELECT * FROM post WHERE post_id=?");
+      $pp->execute(array($id));
+      $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
+      return $pp_r["$istedigin_veri"];
+    }
     public function Goster(){
       $fotogoster = $this->db->prepare("SELECT * FROM post ORDER BY post_id DESC");
       $fotogoster->execute(array());
       $f = $fotogoster->fetchAll(PDO::FETCH_ASSOC);
+      if($f){
         foreach ($f as $m) {
           $pp = $this->PostUserVeri($m["post_sahip"],"pp");
           $yorumlar = $this->db->prepare("SELECT * FROM comment WHERE post_id=? ORDER BY id DESC");
@@ -115,7 +122,7 @@ class Content{
             </div>
           </div>';
 
-        }
+        }}else{echo '</br><a style="font-weight:bold;">Henüz hiç bir gönderi paylaşılmamış. Hadi ilk sen ol!</a>';}
     }
     public function YorumEkle($yorum,$post_id){
       $yazan = $_SESSION['kadi'];
@@ -125,8 +132,22 @@ class Content{
       $ekle->bindParam(2, $yorum, PDO::PARAM_STR);
       $ekle->bindParam(3, $post_id, PDO::PARAM_STR);
       $ekle->execute();
+      $sonId = $this->db->lastInsertId();
       if($ekle){
-        header('Location: ../../index.php');
+        $yazilan = $this->IdtoVeri($post_id,'post_sahip');
+        if($yazan != $yazilan){
+        $notf = $this->db->prepare("INSERT INTO notification(yazan, yorum_id, yazilan)
+        VALUES( ?, ?, ?)");
+        $notf->bindParam(1, $yazan, PDO::PARAM_STR);
+        $notf->bindParam(2, $sonId, PDO::PARAM_STR);
+        $notf->bindParam(3, $yazilan, PDO::PARAM_STR);
+        $notf->execute();
+        if($notf){
+          header('Location: ../../index.php');
+        }else{
+          echo "<h2>Yorum paylaşılırken hata oluştu. Tekrar Deneyin.</h2>";
+          header('Refresh: 2; url=../../views/icerik-ekle.php');
+        }}else  {header('Location: ../../index.php');}
       }else{
         echo "<h2>Yorum paylaşılırken hata oluştu. Tekrar Deneyin.</h2>";
         header('Refresh: 2; url=../../views/icerik-ekle.php');
@@ -136,7 +157,11 @@ class Content{
       $yorum_sil = $this->db->prepare("DELETE FROM comment WHERE id=?");
       $silindi = $yorum_sil->execute(array($yorum_id));
       if ($silindi){
-        header('Location: ../../index.php');
+        $notf_sil = $this->db->prepare("DELETE FROM notification WHERE yorum_id=?");
+        $notf_silindi = $notf_sil->execute(array($yorum_id));
+        if($notf_silindi){
+          header('Location: ../../index.php');
+        }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
       }else{
         echo "<h2>Silinemedi</h2>";
         header('Refresh: 2; url=../../index.php');
@@ -146,13 +171,25 @@ class Content{
       $sil = $this->db->prepare("SELECT * FROM post WHERE post_id=?");
       $sil->execute(array($silinecek_id));
       $bul = $sil->fetch(PDO::FETCH_ASSOC);
+
       $foto_yolu = '../../fotograflar/post/'.$bul["post_adi"].'';
       unlink($foto_yolu);
       $db_sil = $this->db->prepare("DELETE FROM post WHERE post_id=?");
-      $silindi = $db_sil->execute(array($silinecek_id));
-      if ($silindi){
-        header('Location: ../../index.php');
-
+      $siliindi = $db_sil->execute(array($silinecek_id));
+      if ($siliindi){
+        $siil = $this->db->prepare("SELECT * FROM comment WHERE post_id=?");
+        $siil->execute(array($silinecek_id));
+        $bull = $siil->fetch(PDO::FETCH_ASSOC);
+        $yorum_id = $bull['id'];
+        $yorum_sil = $this->db->prepare("DELETE FROM comment WHERE post_id=?");
+        $silindi = $yorum_sil->execute(array($silinecek_id));
+        if($silindi){
+          $notf_sil = $this->db->prepare("DELETE FROM notification WHERE yorum_id=?");
+          $notf_silindi = $notf_sil->execute(array($yorum_id));
+          if($notf_silindi){
+            header('Location: ../../index.php');
+          }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
+        }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
       }else{
         echo "<h2>Silinemedi</h2>";
         header('Refresh: 2; url=../../index.php');

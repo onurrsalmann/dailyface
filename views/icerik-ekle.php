@@ -46,7 +46,7 @@
               <button>
                   <img class="search-icon" src="images/icon/search.png" alt="Read book">
                 </button>
-                &nbsp; &nbsp; <input type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
+                &nbsp; &nbsp; <input required type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
           </form>
         </div>
         <div class="profil">

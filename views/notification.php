@@ -1,3 +1,4 @@
+<?php $kadi = $_SESSION["kadi"]; $profil = new Profil(); $notf = new Notf();?>
 <!doctype html>
 <html lang="tr">
   <head>
@@ -30,14 +31,10 @@
         </div>
       </div>
       <div class="col-8">
-        <div class="foto-ekleme-kismi">
+        <div class="posts">
           <br/>
-          <h2>Bildirimler</h2>
-
-
-
-
-
+          <h2>Bildirimler</h2></br>
+          <?php $notf->NotfGoster(); ?>
 
         </div>
       </div>
@@ -47,11 +44,10 @@
               <button>
                   <img class="search-icon" src="images/icon/search.png" alt="Read book">
                 </button>
-                &nbsp; &nbsp; <input type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
+                &nbsp; &nbsp; <input required type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
           </form>
         </div>
         <div class="profil">
-          <?php $kadi = $_SESSION["kadi"]; $profil = new Profil();?>
           <div class="baslik" style="padding:3%;">
             <a style="font-size: 150%;">Profil</a>
           </div>
