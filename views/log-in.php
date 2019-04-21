@@ -1,7 +1,6 @@
 <?php
-include '../core/init.php';
 if(GirisYapti()){
-    header('Location: ../index.php');
+    header('Location: index.php');
 }else{
     echo '
 <!doctype html>
@@ -10,7 +9,8 @@ if(GirisYapti()){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="images/icon/favicon.ico" type="image/x-icon" />
     <title>dailyface-giris-yap</title>
   </head>
   <body>
@@ -21,27 +21,27 @@ if(GirisYapti()){
         <div class="row h-100">
             <div class="col-4 bg-white border-right border-light">
                 <div class="log-logo">
-                    <div class=""><a href="../index.php"><img src="../images/logo/logom.png" class="logom"/></a></div>
+                    <div class=""><a href="index.php"><img src="images/logo/logom.png" class="logom"/></a></div>
                 </div>
                 <div class="log">
                     <div class="log-in">
                         <div class="log-in-baslik-div">
                         <a class="log-in-baslik">Hesabınla Giriş Yap</a></div>
                         <div class="log-in-form">
-                                <form action="../core/controller/login.php" method="POST" class="log-in-formm">
+                                <form action="core/controller/login.php" method="POST" class="log-in-formm">
                                     <input required class="form-input" type="text" placeholder="Kullanıcı Adı" name="kadi"><br/>
                                     <input required class="form-input"  type="password" placeholder="Şifre" name="sifre"><br>
-                                    <a href="sifremi-unuttum.php" style="float:right; color:#b40ef0; font-size:90%; margin-top:3%;">Şifremi Unuttum</a><br>
+                                    <a href="index.php?g=3" style="float:right; color:#b40ef0; font-size:90%; margin-top:3%;">Şifremi Unuttum</a><br>
                                     <input class="form-button" type="submit" name="loginsubmit" value="Giriş Yap">
                                 </form>
                         </div>
                     </div>
                     <div class="sing-in">
-                        <a class="sing-in-yazi" style="color:black;">Hesabın yok mu? </a><a class="sing-link" href="sign-in.php" style="color:#b40ef0;">Kaydol.</a>
+                        <a class="sing-in-yazi" style="color:black;">Hesabın yok mu? </a><a class="sing-link" href="index.php?g=2" style="color:#b40ef0;">Kaydol.</a>
                     </div>
                 </div>
                 <div class="log-footer">
-                    <a class="log-footer-yazi">@2019 Tüm Hakları Saklıdır.<br>www.salmannonur.com<br>Trakya Üniversitesi NYP Projesi</a>
+                    <a class="log-footer-yazi">@2019 Tüm Hakları Saklıdır.<br>github.com/onurrsalmann/dailyface<br>Trakya Üniversitesi NYP Projesi</a>
                 </div>
             </div>
             <div class="col-8"></div>

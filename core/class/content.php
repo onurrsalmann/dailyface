@@ -15,8 +15,7 @@ class Content{
       $fotoSize = $_FILES["foto"]["size"];
       $fotoSahip = $_SESSION['kadi'];
       if($_FILES["foto"]["size"]>$maxBoyut){
-        echo "<h2>Dosya Boyunu Aşıldı(en fazla 7mb)</h2>";
-        header('Refresh: 2; url=../../views/icerik-ekle.php');
+        header('Location: ../../index.php?error=6');
       }else {
         $foto = $_FILES["foto"]["type"];
         if($foto == "image/jpeg" || $foto == "image/jpg" || $foto == "image/png"){
@@ -31,23 +30,17 @@ class Content{
             $ekle->bindParam(5, $aciklama, PDO::PARAM_STR);
             $ekle->execute();
             if($tasi && $ekle){
-              echo "<h2>Başarılı</h2>";
-              header('Refresh: 1; url=../../index.php');
+              header('Location: ../../index.php');
             }else{
-              echo "<h2>Fotoğraf paylaşılırken hata oluştu. Tekrar Deneyin.</h2>";
-              header('Refresh: 2; url=../../views/icerik-ekle.php');
+              header('Location: ../../index.php?error=7');
             }
           }else{
-            echo "<h2>Fotoğraf yüklenirken hata oluştu. Tekrar Deneyin.</h2>";
-            header('Refresh: 2; url=../../views/icerik-ekle.php');
+            header('Location: ../../index.php?error=7');
           }
         }else {
-          echo "<h2>Format sadece jpeg,png,jpg olmalıdır.</h2>";
-          header('Refresh: 2; url=../../views/icerik-ekle.php');
+          header('Location: ../../index.php?error=8');
         }
-
       }
-
     }
     public function PostUserVeri($kadi,$istedigin_veri){
       $pp = $this->db->prepare("SELECT * FROM users WHERE kadi=?");
@@ -145,12 +138,10 @@ class Content{
         if($notf){
           header('Location: ../../index.php');
         }else{
-          echo "<h2>Yorum paylaşılırken hata oluştu. Tekrar Deneyin.</h2>";
-          header('Refresh: 2; url=../../views/icerik-ekle.php');
+          header('Location: ../../index.php?error=7');
         }}else  {header('Location: ../../index.php');}
       }else{
-        echo "<h2>Yorum paylaşılırken hata oluştu. Tekrar Deneyin.</h2>";
-        header('Refresh: 2; url=../../views/icerik-ekle.php');
+        header('Location: ../../index.php?error=7');
       }
     }
     public function YorumSil($yorum_id){
@@ -163,8 +154,7 @@ class Content{
           header('Location: ../../index.php');
         }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
       }else{
-        echo "<h2>Silinemedi</h2>";
-        header('Refresh: 2; url=../../index.php');
+        header('Location: ../../index.php?error=7');
       }
     }
     public function Sil($silinecek_id){
@@ -191,8 +181,7 @@ class Content{
           }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
         }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
       }else{
-        echo "<h2>Silinemedi</h2>";
-        header('Refresh: 2; url=../../index.php');
+        header('Location: ../../index.php?error=7');
       }
     }
 

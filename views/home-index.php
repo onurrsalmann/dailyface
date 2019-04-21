@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="shortcut icon" href="images/icon/favicon.ico" type="image/x-icon" />
     <title>dailyface</title>
   </head>
   <body>
@@ -38,7 +39,7 @@
         <div class="search">
           <form action="views/search.php" method="GET" class="search-form">
               <button>
-                  <img class="search-icon" src="images/icon/search.png" alt="Read book">
+                  <img class="search-icon" src="images/icon/search.png" alt="Search Button">
                 </button>
                 &nbsp; &nbsp; <input required type="text" name="search" style="background: none; border:none; font-size: 120%;color:black;" placeholder="Ara">
           </form>
@@ -60,7 +61,6 @@
           <div class="profil-ayarlar">
             <a href="?s=4">Profili Düzenle</a>
           </div>
-
         </div>
       </div>
     </div>

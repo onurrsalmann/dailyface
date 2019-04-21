@@ -26,7 +26,7 @@ class Users{
                 $_SESSION['email']=$kadi;
                 header('Location: ../../index.php');
             }else{
-                echo "hatali";
+                header('Location: ../../index.php?error=1');
             }
         }
     }
@@ -35,9 +35,9 @@ class Users{
         $ko = $this->db->prepare("SELECT (kadi) FROM users WHERE kadi = :kadi");
             $ko->execute(array("kadi" => $kadi));
             if($ko->rowCount() > 0)
-            { print "Kullanıcı mevcut"; }
+            { header('Location: ../../index.php?g=2&error=2'); }
             else{
-                if (preg_match('/[^A-Za-z0-9-_]/i', $kadi)) { echo "Kullanıcı adınız izin verilmeyen karakterler içeriyor.";}
+                if (preg_match('/[^A-Za-z0-9-_]/i', $kadi)) { header('Location: ../../index.php?g=2&error=3');}
                 else{
                     $a = $this->db->prepare("INSERT INTO users(eposta, kadi, sifre, adi, token) VALUES ( ?, ?, ?, ?, ?)");
                     $a->bindParam(1, $eposta, PDO::PARAM_STR);
@@ -49,7 +49,7 @@ class Users{
                     if ($a) {  $login = new Users();
                         $login->Login($kadi, $sifre);
                     }
-                    else { echo "Eklenemedi."; }
+                    else { header('Location: ../../index.php?g=2&error=4'); }
                 }
             }
     }
@@ -88,11 +88,7 @@ class Users{
 				header("Refresh:1;url=../../index.php");
 			}
 		}else{
-			echo '<div style="padding:10px 10px 10px 10px;border-top:1px solid #ddd;line-height:23px">
-			Hata ! <br />
-			Bu E-Mail Adresi Sisteme Kayıtlı Değildir. Yönlendiriliyorsunuz . . .
-			</div>';
-			header("Refresh:1;url=../../index.php");
+			header('Location: ../../index.php?g=3&error=5');
 		}
     }
     public function PassReset($sifre, $token){
