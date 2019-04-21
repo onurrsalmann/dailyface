@@ -44,7 +44,8 @@ if(GirisYapti()){
                     <a class="log-footer-yazi">@2019 Tüm Hakları Saklıdır.<br>github.com/onurrsalmann/dailyface<br>Trakya Üniversitesi NYP Projesi</a>
                 </div>
             </div>
-            <div class="col-8"></div>
+            <div class="col-8">
+            </div>
         </div>
     </div>
 </body>
