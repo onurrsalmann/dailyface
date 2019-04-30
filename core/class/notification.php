@@ -27,12 +27,13 @@ class Notf{
         foreach ($nfg as $f) {
           $post_adi = $this->IdtoFoto($f["yorum_id"],"post_adi");
           $post_id = $this->IdtoFoto($f["yorum_id"],"post_id");
+          
           $simdi=date_create(date("Y-m-d H:i:s"));
           $bildirimtarih=date_create($f['time']);
           $fark=date_diff($bildirimtarih,$simdi);
           $yorum = $this->YorumuCek($f["yorum_id"], "yorum");
           echo '
-          <div onclick="location.href=`views/profil.php?os='.$f["yazilan"].'&p='.$post_id.'`;" class="notf">
+          <div onclick="location.href=`index.php?s=6&os='.$f["yazilan"].'&p='.$post_id.'`;" class="notf">
             <img class="pp" src="fotograflar/post/'.$post_adi.'">
             <a id="notf-yazan">'.$f["yazan"].' </a><a>&nbsp;yandaki fotoğrafa yorum yaptı: '.$yorum.'</a>
             <form action="core/controller/notf-sil.php" method="POST">

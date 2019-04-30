@@ -13,13 +13,13 @@ class Profil{
     $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
     return $pp_r["$istedigin"];
   }
-  public function Postlar($kadi,$adres1, $adres){
+  public function Postlar($kadi, $adres, $adres2){
     $query = $this->db->query("SELECT * FROM post WHERE post_sahip='$kadi' ORDER BY post_id DESC", PDO::FETCH_ASSOC);
     if($query->rowCount()){
      foreach( $query as $row ){
-        echo '<a href="'.$adres1.'profil.php?os='.$row["post_sahip"].'&p='.$row["post_id"].'">
+        echo '<a href="'.$adres.'index.php?s=6&os='.$row["post_sahip"].'&p='.$row["post_id"].'">
         <div class="profil-post-kalip">
-        <img src= "'.$adres.'fotograflar/post/'.$row["post_adi"].'" class="profil-post-image" alt="post">
+        <img src= "'.$adres2.'fotograflar/post/'.$row["post_adi"].'" class="profil-post-image" alt="post">
         </div>
         </a>';
      }}else{
@@ -36,10 +36,10 @@ class Profil{
     echo '
     <div id="os-post-comment">
       <div class="post-ust">
-        <img class="pp" src="../fotograflar/pp/'.$po.'">
-        <a id="os-post-sahip" href="profil?os='.$pp_r["post_sahip"].'">@'.$pp_r["post_sahip"].'</a>';
+        <img class="pp" src="fotograflar/pp/'.$po.'">
+        <a id="os-post-sahip" href="index.php?s=6&os='.$pp_r["post_sahip"].'">@'.$pp_r["post_sahip"].'</a>';
         if($pp_r["post_sahip"]== $_SESSION["kadi"]){
-          echo '<form action="../core/controller/post-sil.php" method="POST">
+          echo '<form action="core/controller/post-sil.php" method="POST">
             <input name="postsil" type="hidden" value="'.$pp_r["post_id"].'" />
             <input name="postsilsubmit" class="postsil-button"  type="submit" value="Sil">
           </form>';
@@ -48,11 +48,11 @@ class Profil{
         <a class="post-aciklama">'.$pp_r["post_aciklama"].'</a>
       </div>
       <div id="os-post-orta">
-        <img src= "../fotograflar/post/'.$pp_r["post_adi"].'" class="post-image" alt="post">
+        <img src= "fotograflar/post/'.$pp_r["post_adi"].'" class="post-image" alt="post">
       </div>
       <div id="os-post-son">
         <div class="yorum-ekle">
-          <form action="../core/controller/yorum-ekle.php" method="POST">
+          <form action="core/controller/yorum-ekle.php" method="POST">
             <input name="post_id" type="hidden" value="'.$pp_r["post_id"].'" />
             <input required  type="text" placeholder="Yorumunuzu yazınız.." class="yorum-input" name="yorum">
             <input name="yorumsubmit" class="yorum-button"  type="submit" value="Paylaş">
@@ -61,17 +61,17 @@ class Profil{
         <div class="yorumlar">';
         foreach ($yorum as $keyYorum) {
           $yorum_pp = $this->ProfilVeriCek($keyYorum->yazan,"pp");
-          echo '<div class="yorum"><img class="yorum_pp" src="../fotograflar/pp/'.$yorum_pp.'">
-           <a class="yorum-sahip" href="profil.php?os='.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
+          echo '<div class="yorum"><img class="yorum_pp" src="fotograflar/pp/'.$yorum_pp.'">
+           <a class="yorum-sahip" href="index.php?p=6&os='.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
            <a class="yorum-aciklama">'.$keyYorum->yorum.'</a>';
            if($pp_r["post_sahip"]== $_SESSION["kadi"]){
-             echo '<form action="../core/controller/yorum-sil.php" method="POST">
+             echo '<form action="core/controller/yorum-sil.php" method="POST">
                <input name="yorum_id" type="hidden" value="'.$keyYorum->id.'" />
                <input name="yorumsubmit" class="yorum-button"  type="submit" value="Sil">
              </form></div>';
            }
            else if($keyYorum->yazan ==$_SESSION["kadi"]){
-             echo '<form action="../core/controller/yorum-sil.php" method="POST">
+             echo '<form action="core/controller/yorum-sil.php" method="POST">
                <input name="yorum_id" type="hidden" value="'.$keyYorum->id.'" />
                <input name="yorumsubmit" class="yorum-button"  type="submit" value="Sil">
              </form></div>';
@@ -105,7 +105,7 @@ class Profil{
         $pp = $this->db->prepare("SELECT * FROM users WHERE kadi=?");
         $pp->execute(array($_SESSION['kadi']));
         $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
-        $ad = $pp_r['eposta'];
+        $eposta = $pp_r['eposta'];
       }
       $ekle = $this->db->prepare("UPDATE users SET adi= ?, kadi= ?, sifre= ?, eposta= ? WHERE kadi=? ");
       $ekle->bindParam(1, $ad, PDO::PARAM_STR);
@@ -131,12 +131,10 @@ class Profil{
       $cc->bindParam(2, $fotoSahip, PDO::PARAM_STR);
       $cc->execute();
       if($ekle && $tt && $dd && $ff && $cc){
-        echo '<h2>Başarılı</h2>';
         $_SESSION['kadi'] = $kad;
-        header('Refresh: 1; url=../../index.php');
+        header('Location: ../../index.php');
       }else{
-        echo '<h2>Hata oluştu. Tekrar Deneyin.</h2>';
-        header('Refresh: 2; url=../../views/profilduzenle.php');
+        header('Location: ../../index.php?error=4');
       }
 
     }else {
@@ -159,7 +157,7 @@ class Profil{
         $pp = $this->db->prepare("SELECT * FROM users WHERE kadi=?");
         $pp->execute(array($_SESSION['kadi']));
         $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
-        $ad = $pp_r['eposta'];
+        $eposta = $pp_r['eposta'];
       }
       $maxBoyut = 7000000;
       $uzanti = substr($_FILES["pp"]["name"], -4,4);
@@ -167,11 +165,10 @@ class Profil{
       $fotoYolu = "../../fotograflar/pp/".$fotoAdi;
       $fotoSahip = $_SESSION['kadi'];
       if($_FILES["pp"]["size"]>$maxBoyut){
-        echo "<h2>Dosya Boyunu Aşıldı(en fazla 7mb)</h2>";
-        header('Refresh: 2; url=../../views/icerik-ekle.php');
+        header('Location: ../../index.php?error=6');
       }else {
         $foto = $_FILES["pp"]["type"];
-        if($foto == "image/jpeg" || $foto == "image/jpg"){
+        if($foto == "image/jpeg" || $foto == "image/jpg" || $foto == "image/png"){
           if(is_uploaded_file($_FILES["pp"]["tmp_name"])){
             $tasi = move_uploaded_file($_FILES["pp"]["tmp_name"],$fotoYolu);
             $ekle = $this->db->prepare("UPDATE users SET adi= ?, kadi= ?, sifre= ?, pp= ?, eposta=? WHERE kadi=? ");
@@ -199,20 +196,17 @@ class Profil{
             $cc->bindParam(2, $fotoSahip, PDO::PARAM_STR);
             $cc->execute();
             if($tasi && $ekle && $tt && $dd && $ff && $cc){
-              echo '<h2>Başarılı</h2>';
+
               $_SESSION['kadi'] = $kad;
-              header('Refresh: 1; url=../../index.php');
+              header('Location: ../../index.php');
             }else{
-              echo '<h2>Fotoğraf paylaşılırken hata oluştu. Tekrar Deneyin.</h2>';
-              header('Refresh: 2; url=../../views/icerik-ekle.php');
+              header('Location: ../../index.php?s=3&error=4');
             }
           }else{
-            echo '<h2>Fotoğraf yüklenirken hata oluştu. Tekrar Deneyin.</h2>';
-            header('Refresh: 2; url=../../views/icerik-ekle.php');
+            header('Location: ../../index.php?s=3&error=4');
           }
         }else {
-          echo '<h2>Format sadece jpeg,jpg olmalıdır.</h2>';
-          header('Refresh: 2; url=../../views/icerik-ekle.php');
+          header('Location: ../../index.php?s=3&error=8');
         }
 
       }

@@ -68,7 +68,7 @@ class Content{
           <div class="post-comment">
             <div class="post-ust">
               <img class="pp" src="fotograflar/pp/'.$pp.'">
-              <a class="post-sahip" href="views/profil.php?os='.$m["post_sahip"].'">@'.$m["post_sahip"].'</a>';
+              <a class="post-sahip" href="index.php?s=6&os='.$m["post_sahip"].'">@'.$m["post_sahip"].'</a>';
 
               if($m["post_sahip"]== $_SESSION["kadi"]){
                 echo '<form action="core/controller/post-sil.php" method="POST">
@@ -95,7 +95,7 @@ class Content{
               foreach ($yorum as $keyYorum) {
                 $yorum_pp = $this->PostUserVeri($keyYorum->yazan,"pp");
                 echo '<div class="yorum"><img class="yorum_pp" src="fotograflar/pp/'.$yorum_pp.'">
-                 <a class="yorum-sahip" href="views/profil.php?os='.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
+                 <a class="yorum-sahip" href="index.php?s=6&os='.$keyYorum->yazan.'">@'.$keyYorum->yazan.'</a>
                  <a class="yorum-aciklama">'.$keyYorum->yorum.'</a>';
                  if($m["post_sahip"]== $_SESSION["kadi"]){
                    echo '<form action="core/controller/yorum-sil.php" method="POST">
@@ -115,7 +115,30 @@ class Content{
             </div>
           </div>';
 
-        }}else{echo '</br><a style="font-weight:bold;">Henüz hiç bir gönderi paylaşılmamış. Hadi ilk sen ol!</a>';}
+        }
+        echo '<button class="post-button-left" onclick="plusDivs(-1)">&#10094;</button>
+  <button class="post-button-right" onclick="plusDivs(1)">&#10095;</button>
+
+  <script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("post-comment");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+}
+</script>';
+      }else{echo '</br><a style="font-weight:bold;">Henüz hiç bir gönderi paylaşılmamış. Hadi ilk sen ol!</a>';}
     }
     public function YorumEkle($yorum,$post_id){
       $yazan = $_SESSION['kadi'];
@@ -152,9 +175,9 @@ class Content{
         $notf_silindi = $notf_sil->execute(array($yorum_id));
         if($notf_silindi){
           header('Location: ../../index.php');
-        }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
+        }else{header('Location: ../../index.php?error=7');}
       }else{
-        header('Location: ../../index.php?error=7');
+        header('Location: ../../index.php?error=4');
       }
     }
     public function Sil($silinecek_id){
@@ -178,11 +201,10 @@ class Content{
           $notf_silindi = $notf_sil->execute(array($yorum_id));
           if($notf_silindi){
             header('Location: ../../index.php');
-          }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
-        }else{echo "<h2>Silinemedi</h2>"; header('Refresh: 2; url=../../index.php');}
+          }else{header('Location: ../../index.php?error=7');}
+        }else{header('Location: ../../index.php?error=7');}
       }else{
-        header('Location: ../../index.php?error=7');
+        header('Location: ../../index.php?error=4');
       }
     }
-
 }?>

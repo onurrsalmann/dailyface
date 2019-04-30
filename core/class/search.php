@@ -16,9 +16,9 @@ class Search{
           echo '<div class="search-option-cart"><h3>Kullanıcı Adı Sonuçları</h3><a>';
           echo $search." Kelimesine ait (".$sorgu->rowCount()." adet) sonuç bulundu</a></br>";
           foreach ($sorgu as $row) {
-            echo '<div onclick="location.href=`profil.php?os='.$row['kadi'].'`;" class="search-cart">
-            <img class="search-pp" src="../fotograflar/pp/'.$row['pp'].'">
-            <a href="profil.php?os='.$row['kadi'].'" class="search-bilgi-icerik" style="text-decarition:none;">@'.$row['kadi'].'</a></br>
+            echo '<div onclick="location.href=`../../index.php?s=6&os='.$row['kadi'].'`;" class="search-cart">
+            <img class="search-pp" src="../../fotograflar/pp/'.$row['pp'].'">
+            <a href="../../index.php?s=6&os='.$row['kadi'].'" class="search-bilgi-icerik" style="text-decarition:none;">@'.$row['kadi'].'</a></br>
             <a class="search-bilgi-icerik">'.$row['adi'].'</a>
             </div>';
           }echo '</div>';
@@ -32,9 +32,9 @@ class Search{
           echo '<div class="search-option-cart"><h3>Ad Sonuçları</h3><a>';
           echo $search." Kelimesine ait (".$sorg->rowCount()." adet) sonuç bulundu</a></br>";
           foreach ($sorg as $row) {
-            echo '<div onclick="location.href=`profil.php?os='.$row['kadi'].'`;" class="search-cart">
-            <img class="search-pp" src="../fotograflar/pp/'.$row['pp'].'">
-            <a href="profil.php?os='.$row['kadi'].'" class="search-bilgi-icerik" style="text-decarition:none;">@'.$row['kadi'].'</a></br>
+            echo '<div onclick="location.href=`index.php?s=6&os='.$row['kadi'].'`;" class="search-cart">
+            <img class="search-pp" src="../../fotograflar/pp/'.$row['pp'].'">
+            <a href="index.php?s=6&os='.$row['kadi'].'" class="search-bilgi-icerik" style="text-decarition:none;">@'.$row['kadi'].'</a></br>
             <a class="search-bilgi-icerik">'.$row['adi'].'</a>
             </div>';
           }echo '</div>';
