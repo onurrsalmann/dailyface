@@ -28,5 +28,29 @@
 </div>
 </div>
 </div>
+<script>
+var slideIndex = <?php print $p ?>;
+showDivs(slideIndex);
+function plusDivs(n) {
+var x = document.getElementsByClassName("post-comment");
+var now = slideIndex +=n;
+if (now > x.length) {now = 1}
+if (now == 0) {now = x.length}
+window.location = "index.php?p="+now;
+showDivs(now);
+}
+
+function showDivs(n) {
+var i;
+var x = document.getElementsByClassName("post-comment");
+if (n > x.length) {slideIndex = 1}
+if (n < 1) {slideIndex = x.length}
+for (i = 0; i < x.length; i++) {
+  x[i].style.display = "none";
+}
+x[slideIndex-1].style.display = "block";
+
+}
+</script>
 </body>
 </html>

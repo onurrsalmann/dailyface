@@ -13,9 +13,8 @@ class Notf{
       return $yc_r["$istedigin_veri"];
     }
     public function IdtoFoto($id,$istedigin_veri){
-      $post_id = $this->YorumuCek($id,"post_id");
       $ll = $this->db->prepare("SELECT * FROM post WHERE post_id=?");
-      $ll->execute(array($post_id));
+      $ll->execute(array($id));
       $ll_l = $ll->fetch(PDO::FETCH_ASSOC);
       return $ll_l["$istedigin_veri"];
     }
@@ -25,17 +24,16 @@ class Notf{
       $nfg = $nf->fetchAll(PDO::FETCH_ASSOC);
       if($nfg){
         foreach ($nfg as $f) {
-          $post_adi = $this->IdtoFoto($f["yorum_id"],"post_adi");
-          $post_id = $this->IdtoFoto($f["yorum_id"],"post_id");
-          
+          $post_adi = $this->IdtoFoto($f["post_id"],"post_adi");
+
           $simdi=date_create(date("Y-m-d H:i:s"));
           $bildirimtarih=date_create($f['time']);
           $fark=date_diff($bildirimtarih,$simdi);
           $yorum = $this->YorumuCek($f["yorum_id"], "yorum");
           echo '
-          <div onclick="location.href=`index.php?s=6&os='.$f["yazilan"].'&p='.$post_id.'`;" class="notf">
+          <div onclick="location.href=`index.php?s=6&os='.$f["yazilan"].'&p='.$f["post_id"].'`;" class="notf">
             <img class="pp" src="fotograflar/post/'.$post_adi.'">
-            <a id="notf-yazan">'.$f["yazan"].' </a><a>&nbsp;yandaki fotoğrafa yorum yaptı: '.$yorum.'</a>
+            <a id="notf-yazan">'.$f["yazan"].' </a><a>&nbsp;yandaki';if($f['yorum_id']==0){echo ' fotografı beğendi';}else{echo' fotoğrafa yorum yaptı: '.$yorum;} echo '</a>
             <form action="core/controller/notf-sil.php" method="POST">
               <input name="notfsil" type="hidden" value="'.$f["id"].'" />
               <input name="notfsilsubmit" class="notfsil-button" type="submit" value="Okundu">

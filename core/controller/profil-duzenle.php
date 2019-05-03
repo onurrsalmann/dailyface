@@ -6,8 +6,8 @@ require '../init.php';
       $kad = $_POST["kad"];
       $sifre = $_POST["sif"];
       $eposta = $_POST["eposta"];
-      $postGonder = new Profil();
-      $postGonder->Duzenle($ad,$kad,$sifre,$eposta);
+      $duzenle= new Profil();
+      $duzenle->Duzenle($ad,$kad,$sifre,$eposta);
     }else{
         header('Location: ../../index.php');
     }

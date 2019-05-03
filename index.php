@@ -2,6 +2,7 @@
 include_once 'core/init.php';
 $s = isset($_GET["s"]) ? intval(trim($_GET["s"])) : 1;
 $g = isset($_GET["g"]) ? intval(trim($_GET["g"])) : 1;
+$p = isset($_GET["p"]) ? intval(trim($_GET["p"])) : 1;
 $error = isset($_GET["error"]) ? intval(trim($_GET["error"])) : 0;
 if(GirisYapti()){
   include 'views/home/navigation.php';

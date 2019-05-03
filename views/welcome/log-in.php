@@ -29,7 +29,7 @@ if(GirisYapti()){
                         <a class="log-in-baslik">Hesabınla Giriş Yap</a></div>
                         <div class="log-in-form">
                                 <form action="core/controller/login.php" method="POST" class="log-in-formm">
-                                    <input required class="form-input" type="text" placeholder="Kullanıcı Adı" name="kadi"><br/>
+                                    <input required class="form-input" type="text" placeholder="Kullanıcı Adı veya E-posta" name="kadi"><br/>
                                     <input required class="form-input"  type="password" placeholder="Şifre" name="sifre"><br>
                                     <a href="index.php?g=3" style="float:right; color:#b40ef0; font-size:90%; margin-top:3%;">Şifremi Unuttum</a><br>
                                     <input class="form-button" type="submit" name="loginsubmit" value="Giriş Yap">

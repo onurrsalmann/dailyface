@@ -129,12 +129,13 @@ input[placeholder], [placeholder], *[placeholder] {
   width: 96%;
   height: 98%;
   margin:auto;
-  margin-top:1%;
+  margin-top:0.5%;
 }
 .post-ust{
   width: 100%;
   height: 8%;
   background-color: #fff;
+  margin: auto;
 }
 .pp{
   margin-left: 2%;
@@ -186,7 +187,7 @@ input[placeholder], [placeholder], *[placeholder] {
   height: 50%;
 }
 .yorum-input{
-  width: 80%;
+  width: 75%;
   border-radius: 5px;
   float: left;
   margin-left: 2%;
@@ -222,7 +223,7 @@ input[placeholder], [placeholder], *[placeholder] {
   height: 100%;
   width: 100%;
   margin:auto;
-  padding-top:1.5%;
+  padding-top:0.75%;
 }
 .yorum_pp{
   margin-left: 2%;

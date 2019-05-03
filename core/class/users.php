@@ -7,6 +7,12 @@ class Users{
         $this->db = $this->db->dbConnect();
         $this->db->exec("SET NAMES 'utf8'; SET CHARSET 'utf8'");
     }
+    public function EpostaUserVeri($eposta,$istedigin_veri){
+      $pp = $this->db->prepare("SELECT * FROM users WHERE eposta=?");
+      $pp->execute(array($eposta));
+      $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
+      return $pp_r["$istedigin_veri"];
+    }
     public function Login($kadi, $sifre){
         $gy = $this->db->prepare("select * from users where kadi=? and sifre=?");
         $gy->bindParam(1, $kadi);
@@ -17,13 +23,15 @@ class Users{
             $_SESSION['kadi']=$kadi;
             header('Location: ../../index.php');
         }else{
-            $gy = $this->db->prepare("SELECT * FROM users WHERE eposta=? AND sifre=?");
+            $gy = $this->db->prepare("select * from users where eposta=? and sifre=?");
             $gy->bindParam(1, $kadi);
-                $gy->bindParam(2, $sifre);
+            $gy->bindParam(2, $sifre);
             $gy->execute();
 
             if($gy->rowCount() == 1){
                 $_SESSION['email']=$kadi;
+                $_SESSION['kadi']=$this->EpostaUserVeri($_SESSION['email'],'kadi');
+
                 header('Location: ../../index.php');
             }else{
                 header('Location: ../../index.php?error=1');
