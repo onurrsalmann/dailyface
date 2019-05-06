@@ -7,7 +7,7 @@ class Users{
         $this->db = $this->db->dbConnect();
         $this->db->exec("SET NAMES 'utf8'; SET CHARSET 'utf8'");
     }
-    public function EpostaUserVeri($eposta,$istedigin_veri){
+    private function EpostaUserVeri($eposta,$istedigin_veri){
       $pp = $this->db->prepare("SELECT * FROM users WHERE eposta=?");
       $pp->execute(array($eposta));
       $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
@@ -76,10 +76,10 @@ class Users{
 			$mail->SMTPSecure = 'tls';
 			$mail->Username = 'dailyface2019@gmail.com'; // G-Mail Adresi
 			$mail->Password = 'DailyFace2019';  // G-Mail Şifresi
-			$mail->SetFrom($mail->Username, 'DailyFace.com'); // Sitenizin Adı
+			$mail->SetFrom($mail->Username, 'DailyFace.com');
 			$mail->AddAddress($eposta);
 			$mail->CharSet = 'UTF-8';
-			$mail->Subject = 'Şifre Sıfırlama'; // Mail Başlığı
+			$mail->Subject = 'Şifre Sıfırlama';
 			$content = '<div style="background: #eee; padding: 10px; font-size: 14px">
 			Merhabalar ! <br />
 			DailyFace.com sitesinin size özel şifre sıfırlama linki aşağıdadır.Aşağıda ki linke tıklayarak şifrenizi sıfırlayabilirsiniz.<br />

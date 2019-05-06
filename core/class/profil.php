@@ -7,7 +7,7 @@ class Profil{
       $this->db = $this->db->dbConnect();
       $this->db->exec("SET NAMES 'utf8'; SET CHARSET 'utf8'");
   }
-  public function ProfilVeriCek($kadi,$istedigin){
+  private function ProfilVeriCek($kadi,$istedigin){
     $pp = $this->db->prepare("SELECT * FROM users WHERE kadi=?");
     $pp->execute(array($kadi));
     $pp_r = $pp->fetch(PDO::FETCH_ASSOC);

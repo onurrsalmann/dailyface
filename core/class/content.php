@@ -42,13 +42,13 @@ class Content{
         }
       }
     }
-    public function PostUserVeri($kadi,$istedigin_veri){
+    private function PostUserVeri($kadi,$istedigin_veri){
       $pp = $this->db->prepare("SELECT * FROM users WHERE kadi=?");
       $pp->execute(array($kadi));
       $pp_r = $pp->fetch(PDO::FETCH_ASSOC);
       return $pp_r["$istedigin_veri"];
     }
-    public function IdtoVeri($id,$istedigin_veri){
+    private function IdtoVeri($id,$istedigin_veri){
       $pp = $this->db->prepare("SELECT * FROM post WHERE post_id=?");
       $pp->execute(array($id));
       $pp_r = $pp->fetch(PDO::FETCH_ASSOC);

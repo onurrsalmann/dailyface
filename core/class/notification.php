@@ -6,13 +6,13 @@ class Notf{
         $this->db = $this->db->dbConnect();
         $this->db->exec("SET NAMES 'utf8'; SET CHARSET 'utf8'");
     }
-    public function YorumuCek($id, $istedigin_veri){
+    private function YorumuCek($id, $istedigin_veri){
       $yc = $this->db->prepare("SELECT * FROM comment WHERE id=?");
       $yc->execute(array($id));
       $yc_r = $yc->fetch(PDO::FETCH_ASSOC);
       return $yc_r["$istedigin_veri"];
     }
-    public function IdtoFoto($id,$istedigin_veri){
+    private function IdtoFoto($id,$istedigin_veri){
       $ll = $this->db->prepare("SELECT * FROM post WHERE post_id=?");
       $ll->execute(array($id));
       $ll_l = $ll->fetch(PDO::FETCH_ASSOC);
