@@ -1,3 +1,3 @@
 DailyFace
 
-## Proje Sunumu DailyFace Sunum.pptx dosyasındadır.
+## Proje Sunumu DailyFace Sunum.pptx dosyasıdır.
